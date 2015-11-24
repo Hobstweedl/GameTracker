@@ -12,7 +12,6 @@
 */
 
 use App\Bgg;
-use Image;
 use App\Uploadr;
 
 Route::get('/', function () {
@@ -50,13 +49,6 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);
-
-Route::get('test', function(){
-	
-	$url = '//cf.geekdo-images.com/images/pic260554.jpg';
-	return Image::make($url)->response('jpg');
-
-});
 
 Route::get('api/game/{id}', ['as' => 'api.game', function($id){
 	$bgg = new \App\Bgg;
