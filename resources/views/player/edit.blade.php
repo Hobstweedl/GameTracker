@@ -61,7 +61,11 @@
 
             <select class="ui fluid search dropdown" name="roles[]" multiple="">
                 @foreach( $roles as $role)
-                    <option value="1">{{$role->name}}</option>
+                    @if( $player->is($role->slug) )
+                        <option value="{{$role->slug}}" selected>{{$role->name}}</option>
+                    @else
+                        <option value="{{$role->slug}}">{{$role->name}}</option>
+                    @endif
                 @endforeach
             </select>
 

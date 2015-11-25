@@ -71,9 +71,12 @@ class PlayerController extends Controller
             );
             $user->profile_photo = $path;
         }
-
+        $user->revokeAllRoles();
+        foreach( $request->input('roles') as $role){
+            $user->assignRole($role);
+        }
         $user->save();
-        return redirect()->route('player');
+        return redirect()->back();
         
     }
 
