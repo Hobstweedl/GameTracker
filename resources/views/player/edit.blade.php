@@ -55,6 +55,17 @@
                 <input type="password" name="password_confirmation">
             </div>
         </div>
+
+        @if( Auth::user()->is('admin')) 
+            <div class="ui horizontal divider">Roles</div>
+
+            <select class="ui fluid search dropdown" name="roles[]" multiple="">
+                @foreach( $roles as $role)
+                    <option value="1">{{$role->name}}</option>
+                @endforeach
+            </select>
+
+        @endif
         
         <div class="ui horizontal divider">Profile</div>
 
@@ -84,6 +95,7 @@
 
 $( document ).ready(function() {
 
+    $('select').dropdown({placeholder:'Search for Roles'});
     $('.ui.checkbox').checkbox({
         onChecked: function() {
           $('#account').show();

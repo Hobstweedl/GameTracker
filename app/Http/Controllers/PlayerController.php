@@ -33,7 +33,8 @@ class PlayerController extends Controller
     public function edit($id){
 
         return view('player.edit', [
-            'player' => User::find($id)
+            'player' => User::find($id),
+            'roles' => Role::get(),
         ]);
     }
 

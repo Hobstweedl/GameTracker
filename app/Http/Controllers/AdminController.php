@@ -18,11 +18,6 @@ class AdminController extends Controller
     }
 
     public function index(){
-        if( Auth::user()->is('admin') ){
-            echo 'GOGOGOGOGOGO';
-        } else{
-            echo 'FFFFFFFFFFFFF';
-        }
         $roles = Role::get();
         $players = User::get();
         return view('admin.index', ['roles' => $roles, 'players' => $players]);
