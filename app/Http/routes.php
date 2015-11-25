@@ -30,13 +30,13 @@ Route::post('player/add', ['uses' => 'PlayerController@store', 'as' => 'player.s
 Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'player.edit']);
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
 
-Route::get('player/register', ['uses' => 'PlayerController@register', 'as' => 'player.register']);
-
 /* Admin */
 Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);
 Route::get('admin/roles', ['uses' => 'AdminController@roles', 'as' => 'admin.roles']);
 Route::get('admin/roles/create', ['uses' => 'AdminController@createRole', 'as' => 'admin.roles.create']);
 Route::post('admin/roles/create', ['uses' => 'AdminController@storeRole', 'as' => 'admin.roles.store']);
+
+Route::get('admin/user/edit/{id}', ['uses' => 'AdminController@user', 'as' => 'admin.user.edit']);
 
 /*	Register and Login */
 Route::get('auth/login', 'Auth\AuthController@getLogin');

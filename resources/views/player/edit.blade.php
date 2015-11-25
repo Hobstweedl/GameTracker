@@ -60,11 +60,8 @@
 
         <div class="field">
             <label>Current Picture</label>
-            @if( is_null($player->profile_photo) )
-            <img src="{{ GlideImage::load('default-user.jpg') }}">
-            @else
-            <img src="{{ GlideImage::load($player->profile_photo)->modify(['w'=> 200, 'h'=>200]) }}">
-            @endif
+            {!! $player->profileImage() !!}
+           
         </div>
 
 

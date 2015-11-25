@@ -93,22 +93,24 @@ class PlayerController extends Controller
         } else{
             $password = 'XXX';
         }
+        $file = $request->file('photo');
         
         $user = User::create([
             'username' => $request->input('username'),
             'email' => $request->input('email', null),
             'password' => $password,
-        ]);
+        ]); 
         $user->nickname = $request->input('nickname');
+        
 
-        if( $request->has('photo') ){
+        if( $file ){
             $uploadr = new \App\Uploadr;
             $path = $uploadr->upload(
                 $request->file('photo'), 
                 round($request->height),
                 round($request->width),
                 'user', 
-                $user->id,
+                'test',
                 round($request->offsetx),
                 round($request->offsety)
             );

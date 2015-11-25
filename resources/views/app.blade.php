@@ -31,9 +31,9 @@
   <meta name="theme-color" content="#9e1c20">
 
 </head>
-<body>
+<body class="minimal pushable">
 
-<div class="ui left vertical inverted sidebar menu visible">
+<div class="ui thin left vertical inverted sidebar menu visible">
   
     @include('partials._sidebar')
   

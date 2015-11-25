@@ -23,7 +23,7 @@ class Uploadr {
 		}
 
 		if (!File::isDirectory($storagePath)){
-		    File::makeDirectory($storagePath);
+		    File::makeDirectory($storagePath, 0777, true);
 		}
 		$p .= $name.'.'.$ext;
 		$img = Image::make( $url )->resize($w, $h, function ($constraint) {
@@ -50,12 +50,14 @@ class Uploadr {
 		}
 		
 		if (!File::isDirectory($storagePath)){
-		    File::makeDirectory($storagePath);
+			echo 'Make Directory '.$storagePath.'<br>';
+		    File::makeDirectory($storagePath, 0777, true);
 		}
 		$img = Image::make( $file )->crop($w, $h, $x, $y)->
 		resize(400, null, function($c){
                 $c->aspectRatio();
         })->save( $this->path.DIRECTORY_SEPARATOR.$p);
+        
 		
 		return $p;
 

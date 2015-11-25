@@ -2,6 +2,7 @@
 
 namespace App;
 
+use GlideImage;
 use Kodeine\Acl\Traits\HasRole;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -37,4 +38,17 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function profileImage($w = 175, $h = 145){
+        $params = ['w' => $h, 'h' => $h];
+        if( is_null($this->profile_photo) ){
+            $glide = GlideImage::load('default-image.jpg')->modify($params);
+            return "<img src='$glide'>";
+        } else{
+            $glide = GlideImage::load($this->profile_photo)->modify($params);
+            return "<img src='$glide'>";
+        }
+        //return '<img src="{{ GlideImage::load(default-image.jpg)->modify($params) }}">';
+
+    }
 }

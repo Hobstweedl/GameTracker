@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
@@ -16,8 +18,14 @@ class AdminController extends Controller
     }
 
     public function index(){
+        if( Auth::user()->is('admin') ){
+            echo 'GOGOGOGOGOGO';
+        } else{
+            echo 'FFFFFFFFFFFFF';
+        }
         $roles = Role::get();
-        return view('admin.index', ['roles' => $roles]);
+        $players = User::get();
+        return view('admin.index', ['roles' => $roles, 'players' => $players]);
     }
     /**
      * Show the profile for the given user.
@@ -43,4 +51,5 @@ class AdminController extends Controller
         return redirect()->back();
 
     }
+
 }

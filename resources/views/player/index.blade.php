@@ -6,15 +6,15 @@
 
 <div class="ui items">
 
-  @foreach($users as $user)
+  @foreach($users as $player)
     <div class="item">
       <div class="ui small image">
-        <img src="{{ GlideImage::load($user->profile_photo)->modify(['w'=> 175, 'h'=>145]) }}"><!-- 175 x 145 -->
+        {!! $player->profileImage() !!}
       </div>
       <div class="content">
-        <div class="header">{{ $user->nickname }}</div>
+        <div class="header">{{ $player->nickname }}</div>
         <div class="meta">
-          <span>Meta Info Goes Here</span>
+          <span>&nbsp;</span>
           
         </div>
         <div class="description">

@@ -22,7 +22,7 @@
       </div>
 
       <div class="ui bottom attached tab segment" data-tab="users">
-        users
+        @include('admin.partials.users')
       </div>
 
       <script>

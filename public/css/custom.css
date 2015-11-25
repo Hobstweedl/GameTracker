@@ -2,3 +2,8 @@
 
 .hidden{display: none;}
 .show{display:block;}
+@media only screen and (min-width: 1200px){
+.ui.container {
+  width: 900px!important;
+}
+}
