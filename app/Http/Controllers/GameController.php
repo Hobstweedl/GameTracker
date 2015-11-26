@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Uploadr;
 use App\Game;
-
+use App\Bgg;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
@@ -63,5 +63,17 @@ class GameController extends Controller
 
         return redirect()->route('game');
         
+    }
+
+    public function show($id){
+
+        $game = Game::find($id);
+        $bgg = new \App\Bgg;
+        $api = $bgg->getBoardGame($game->bgg_id);
+        return view('game.show', [
+            'game' => $game,
+            'details' => $api
+        ]);
+
     }
 }

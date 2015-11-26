@@ -24,7 +24,7 @@
 
     <div class="ui avatar image"></div>
     <div class="content">
-      {{ $role->name }} - {{ $role->description }}
+      <strong>{{ $role->name }}</strong> - {{ $role->description }}
     </div>
   </div>
 @endforeach

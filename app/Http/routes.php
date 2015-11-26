@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('game', ['uses' => 'GameController@index', 'as' => 'game']);
 Route::get('game/add', ['uses' => 'GameController@add', 'as' => 'game.add']);
 Route::post('game/add', ['uses' => 'GameController@store', 'as' => 'game.store']);
+Route::get('game/show/{id}', ['uses' => 'GameController@show', 'as' => 'game.show']);
 
 /* Player */
 Route::get('player', ['uses' => 'PlayerController@index', 'as' => 'player']);
@@ -52,7 +53,8 @@ Route::controllers([
 
 Route::get('api/game/{id}', ['as' => 'api.game', function($id){
 	$bgg = new \App\Bgg;
-	return response()->json( $bgg->getBoardGame($id), 200, [], JSON_PRETTY_PRINT );
+	$bgg->getBoardGame($id);
+	//return response()->json( $bgg->getBoardGame($id), 200, [], JSON_PRETTY_PRINT );
 }]);
 
 Route::get('api/search/{text}', ['as' => 'api.search', function($text = null){

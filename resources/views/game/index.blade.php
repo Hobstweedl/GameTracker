@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="ui items">
+<div class="ui divided items">
 
   @foreach($games as $game)
     <div class="item">
@@ -12,7 +12,7 @@
         <img src="{{ GlideImage::load($game->photo)->modify(['w'=> 175, 'h'=>175]) }}"><!-- 175 x 145 -->
       </div>
       <div class="content">
-        <div class="header">{{ $game->name}}</div>
+        <a href="{{route('game.show', $game->id)}}" class="header">{{ $game->name}}</a>
         <div class="meta">
           <span>here is where a label will go?</span>
         </div>

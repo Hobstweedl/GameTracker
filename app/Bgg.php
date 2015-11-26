@@ -27,10 +27,14 @@ class Bgg {
 		$parse = $xml->item;
 
 		$output['id'] = (int) $parse->attributes()['id'];
-		$output['thumbnail'] = (string) $parse->thumbnail;
 		$output['image'] = (string) $parse->image;
 		$output['name'] = (string) $parse->name->attributes()['value'];
 		$output['description'] = (string) $parse->description;
+		$output['published'] = (string) $parse->yearpublished->attributes()['value'];
+		$output['playingtime'] = (string) $parse->playingtime->attributes()['value'];
+		foreach($parse->link as $link){
+			$output['tags'][] = (string) $link->attributes()['value'];
+		}
 
 		return $output;
 	}
