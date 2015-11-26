@@ -31,6 +31,8 @@ Route::post('player/add', ['uses' => 'PlayerController@store', 'as' => 'player.s
 Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'player.edit']);
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
 
+Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
+
 /* Admin */
 Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);
 Route::get('admin/roles', ['uses' => 'AdminController@roles', 'as' => 'admin.roles']);
