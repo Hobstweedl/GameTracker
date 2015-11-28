@@ -13,12 +13,15 @@
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/themes/basic/assets/fonts/icons.ttf">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/themes/basic/assets/fonts/icons.woff">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.0.0/cropper.min.css">
-
+  
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/picker.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.6/semantic.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.0.0/cropper.min.js"></script>
+  <script src="{{ asset('js/moment.js') }}"></script>
+  <script src="{{ asset('js/picker.js') }}"></script>
 
   <script src="{{ asset('js/app.js') }}"></script>
 

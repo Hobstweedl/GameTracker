@@ -4,24 +4,13 @@
 
 @section('content')
 
-<form class="ui form" method="POST" action="{{ route('playthrough.record') }}">
+<form class="ui form" method="POST" action="{{ route('playthrough.log') }}">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
   <div class="field">
     <label>Game</label>
     <input type="text" name="game">
   </div>
-
-  <div class="field">
-    <label>Date Played</label>
-    <input type="text" name="daterange"></input>
-  </div>
-
-  <div class="field">
-    <label>Notes</label>
-    <textarea name="notes"></textarea>
-  </div>
-
 
   <div class="field">
     
@@ -65,7 +54,7 @@
   </div>
 
   <div class="field">
-    <input type="submit" class="ui primary button" value="Start Tracking">
+    <input type="submit" class="ui primary button" value="Add Play">
   </div>
   
 
@@ -75,33 +64,8 @@
 <script>
 $('#players').dropdown({
   placeholder:'Who played?',
-
-  /*onAdd: function(value, text, $choice) {
-    // custom action
-    console.log(value, text);
-    
-    var ch = $choice[0];
-    var item = '<div class="item" data-value="' + value + '">';
-    item += text;
-    item += '</div>';
-
-    $("#winners .list").append(item);
-    $('#winners').dropdown('refresh');
-
-  },
-  onRemove: function(removedValue, removedText, $removedChoice){
-    var item = $("div").find("[data-value='" + removedValue + "']");
-    $(item).remove();
-    $("#players .list").append(item);
-    $('#winners').dropdown('refresh');
-    $('#players').dropdown('refresh');
-  }
-  */
 });
 
-$('#winners').dropdown({
-  placeholder:'Who won?'
-});
 
 $('input[name="daterange"]').daterangepicker({
   timePicker: true,

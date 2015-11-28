@@ -32,6 +32,8 @@ Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'play
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
 
 Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
+Route::post('playthrough/add', ['uses' => 'PlaythroughController@record', 'as' => 'playthrough.record']);
+Route::get('playthrough/log', ['uses' => 'PlaythroughController@log', 'as' => 'playthrough.log']);
 
 /* Admin */
 Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);

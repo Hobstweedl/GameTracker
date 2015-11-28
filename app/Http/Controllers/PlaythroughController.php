@@ -64,4 +64,19 @@ class PlaythroughController extends Controller
         
     }
 
+    public function record(Request $request){
+        print_r( $request->all() );
+
+        echo '<br><br>';
+
+        echo $request->input('winners');
+    }
+
+    public function log(){
+        return view('game.log',[
+            'players' => User::get(['id', 'nickname', 'profile_photo'])
+        ]);
+
+    }
+
 }
