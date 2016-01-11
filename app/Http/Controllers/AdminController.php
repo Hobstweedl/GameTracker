@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\User;
+use App\Game;
+use App\Bgg;
+use App\Uploadr;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
@@ -22,12 +25,7 @@ class AdminController extends Controller
         $players = User::get();
         return view('admin.index', ['roles' => $roles, 'players' => $players]);
     }
-    /**
-     * Show the profile for the given user.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+    
     public function roles(){
         return view('admin.roles');
     }
@@ -45,6 +43,22 @@ class AdminController extends Controller
 
         return redirect()->back();
 
+    }
+
+    public function indexGames(){
+        $games = Game::get();
+        $bgg = new \App\Bgg;
+        $uploadr = new \App\Uploadr;
+
+        foreach($games as $game){
+
+            $url = 'http:'.$bgg->getGameImage($game->bgg_id );
+            $path = $uploadr->uploadFromUrl($url, $game->id, 'game');
+            $game->photo = $path;
+            $game->save();
+        }
+
+        return redirect()->back();
     }
 
 }

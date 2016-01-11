@@ -11,7 +11,7 @@
   
     <div class="content menu {{ Request::is('playthrough*') ? "active" : "" }}">
       <a class="item">View Playthrough</a>
-      <a class="item">Add playthrough</a>
+      <a class="item" href="{{ route('playthrough.add.log') }}">Add playthrough</a>
     </div>
   </div>
 

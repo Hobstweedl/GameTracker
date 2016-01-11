@@ -44,8 +44,8 @@ Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);
 Route::get('admin/roles', ['uses' => 'AdminController@roles', 'as' => 'admin.roles']);
 Route::get('admin/roles/create', ['uses' => 'AdminController@createRole', 'as' => 'admin.roles.create']);
 Route::post('admin/roles/create', ['uses' => 'AdminController@storeRole', 'as' => 'admin.roles.store']);
-
 Route::get('admin/user/edit/{id}', ['uses' => 'AdminController@user', 'as' => 'admin.user.edit']);
+Route::get('admin/game/index', ['uses' => 'AdminController@indexGames', 'as' => 'admin.game.index']);
 
 /*	Register and Login */
 Route::get('auth/login', 'Auth\AuthController@getLogin');

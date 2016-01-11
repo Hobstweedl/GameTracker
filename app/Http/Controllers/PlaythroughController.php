@@ -24,9 +24,20 @@ class PlaythroughController extends Controller
 
     public function index(){
 
+        $p = Playthrough::get();
+        foreach($p as $pl){
+            print_r($pl->times);
+            echo '<br>';
+        }
+
+        /*
+        $active = Playthrough::where('where group by has no end');
+        $paused = Playthrough::orderBy('id', 'desc')->take(20)->get();
+        $plays = Playthrough::orderBy('id', 'desc')->take(20)->get();
         return view('playthrough.index',[
             'plays' => Playthrough::orderBy('id', 'desc')->take(20)->get()
-        ]); 
+        ]);
+        */ 
         
     }
     
@@ -62,7 +73,7 @@ class PlaythroughController extends Controller
             ]);
         }
         
-        print_r( $request->all() );
+        return redirect()->route('playthrough');
     }
 
 

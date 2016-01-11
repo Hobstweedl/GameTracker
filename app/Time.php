@@ -9,4 +9,8 @@ class Time extends Model{
 
     protected $fillable = ['playthrough_id', 'action'];
 
+        public function times(){
+    	return $this->hasMany('App\Time');
+    }
+
 }

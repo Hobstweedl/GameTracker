@@ -18,4 +18,8 @@ class Playthrough extends Model{
     	return $this->hasOne('App\Game', 'id', 'game_id')->select(['id', 'name', 'photo', 'description']);
     }
 
+    public function times(){
+        return $this->hasMany('App\Time');
+    }
+
 }
