@@ -3,80 +3,98 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Game;
+use App\Participant;
+use App\Playthrough;
+use App\Time;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Illuminate\Support\Facades\Storage;
 use Kodeine\Acl\Models\Eloquent\Permission;
+use Carbon\Carbon;
 
 
 class PlaythroughController extends Controller
 {
 
      public function __construct(){
-        //$this->middleware('auth');
+        $this->middleware('auth', ['only' => ['log', 'storeLog', 'storeHistorical', 'historical']]);
     }
 
     public function index(){
+
+        return view('playthrough.index',[
+            'plays' => Playthrough::orderBy('id', 'desc')->take(20)->get()
+        ]); 
         
     }
-    /**
-     * Show the profile for the given user.
-     *
-     * @param  int  $id
-     * @return Response
-     */
-    public function add(){
-        return view('playthrough.add',[
-            'players' => User::get(['id', 'nickname', 'profile_photo'])
-        ]);
-    }
-
-    public function store(Request $request){
-
-         $this->validate($request, [
-            'name' => 'required|max:255|unique:games',
-            'description' => 'required',
-            'bgg_id' => 'required',
-        ]);
-        
-        $game = new Game;
-        $game->name = $request->name;
-        $game->description = $request->description;
-        $game->bgg_id = $request->bgg_id;
-
-        if( $request->has('scorable') ){
-            $game->scorable = 1;
-        }
-        $game->save();
-
-
-        $bgg = new \App\Bgg;
-        $url = 'http:'.$bgg->getGameImage($request->input('bgg_id') );
-
-        $uploadr = new \App\Uploadr;
-        $path = $uploadr->uploadFromUrl($url, $game->id, 'game');
-
-        $game->photo = $path;
-        $game->save();
-
-        return redirect()->route('game');
-        
-    }
-
-    public function record(Request $request){
-        print_r( $request->all() );
-
-        echo '<br><br>';
-
-        echo $request->input('winners');
-    }
-
+    
     public function log(){
-        return view('game.log',[
-            'players' => User::get(['id', 'nickname', 'profile_photo'])
+        return view('playthrough.log',[
+            'players' => User::get(['id', 'nickname', 'profile_photo']),
+            'games' => Game::get(['id', 'name', 'photo'])
         ]);
 
     }
+
+    public function storeLog(Request $request){
+        $game = $request->get('game');
+        $users = $request->get('players');
+        print_r($game);
+        echo '<br><br>';
+        $userArr = explode(',', $users);
+        print_r($userArr);
+        $playthrough = Playthrough::create([
+            'game_id' => $game
+        ]);
+
+        $time = Time::create([
+            'playthrough_id' => $playthrough->id,
+            'action' => 'start'
+        ]);
+
+        foreach($userArr as $user){
+            Participant::create([
+                'playthrough_id' => $playthrough->id,
+                'game_id' => $game,
+                'user_id' => $user
+            ]);
+        }
+        
+        print_r( $request->all() );
+    }
+
+
+    public function historical(){
+        return view('playthrough.historical',[
+            'players' => User::get(['id', 'nickname', 'profile_photo']),
+            'games' => Game::get(['id', 'name', 'photo'])
+        ]);
+    }
+
+    public function storeHistorical(Request $request){
+        $game = $request->get('game');
+        $users = $request->get('players');
+        $userArr = explode(',', $users);
+        $date = Carbon::createFromFormat('m/d/Y', $request->get('daterange'));
+
+        $playthrough = Playthrough::create([
+            'game_id' => $game,
+            'played' => $date,
+            'notes' => $request->get('notes')
+        ]);
+
+        foreach($userArr as $user){
+            Participant::create([
+                'playthrough_id' => $playthrough->id,
+                'game_id' => $game,
+                'user_id' => $user
+            ]);
+        }
+        
+        print_r( $request->all() );
+    }
+
 
 }

@@ -1,15 +1,27 @@
 @extends('app')
 
-@section('title', 'New Play')
+@section('title', 'Add Historical Play')
 
 @section('content')
 
-<form class="ui form" method="POST" action="{{ route('playthrough.record') }}">
+<form class="ui form" method="POST" action="{{ route('playthrough.store.historical') }}">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
   <div class="field">
     <label>Game</label>
-    <input type="text" name="game">
+    <div class="ui fluid search selection dropdown" id="game">
+      <input type="hidden" name="game">
+      <i class="dropdown icon"></i>
+      <div class="default text">Select Game</div>
+      <div class="menu">
+        @foreach($games as $game)
+          <div class="item" data-value="{{ $game->id }}">
+            {!! $game->coverImage() !!}
+            {{ $game->name }}
+          </div>
+        @endforeach
+      </div>
+    </div>
   </div>
 
   <div class="field">
@@ -102,9 +114,10 @@ $('#players').dropdown({
 $('#winners').dropdown({
   placeholder:'Who won?'
 });
+$('#game').dropdown();
 
 $('input[name="daterange"]').daterangepicker({
-  timePicker: true,
+  timePicker: false,
   singleDatePicker: true
 });
 

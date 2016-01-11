@@ -17,10 +17,6 @@
 
 	<form class="ui form" method="post" action="{{ route('game.store') }}" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <!--<input type="hidden" name="offsetx" value="0">
-        <input type="hidden" name="offsety" value="0">
-        <input type="hidden" name="height" value="0">
-        <input type="hidden" name="width" value="0">-->
         <input type="hidden" name="bgg_id" id ="bgg" value="0">
         
         <div class="field">

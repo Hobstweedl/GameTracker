@@ -31,9 +31,13 @@ Route::post('player/add', ['uses' => 'PlayerController@store', 'as' => 'player.s
 Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'player.edit']);
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
 
-Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
-Route::post('playthrough/add', ['uses' => 'PlaythroughController@record', 'as' => 'playthrough.record']);
-Route::get('playthrough/log', ['uses' => 'PlaythroughController@log', 'as' => 'playthrough.log']);
+Route::get('playthrough', ['uses' => 'PlaythroughController@index', 'as' => 'playthrough']);
+Route::get('playthrough/log/add', ['uses' => 'PlaythroughController@log', 'as' => 'playthrough.add.log']);
+Route::post('playthrough/log/add', ['uses' => 'PlaythroughController@storeLog', 'as' => 'playthrough.store.log']);
+Route::get('playthrough/historical/add', ['uses' => 'PlaythroughController@historical', 'as' => 'playthrough.add.historical']);
+Route::post('playthrough/historical/add', ['uses' => 'PlaythroughController@storeHistorical', 'as' => 'playthrough.store.historical']);
+Route::get('playthrough/active/{id}', ['uses' => 'PlaythroughController@active', 'as' => 'playthrough.active']);
+
 
 /* Admin */
 Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);

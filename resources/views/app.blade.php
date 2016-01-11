@@ -36,7 +36,7 @@
 </head>
 <body class="minimal pushable">
 
-<div class="ui thin left vertical inverted sidebar menu visible">
+<div class="ui sidebar thin left vertical inverted  menu visible">
   
     @include('partials._sidebar')
   

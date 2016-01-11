@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Playthrough extends Model{
 
-    protected $fillable = ['name', 'scorable', 'photo'];
+    protected $fillable = ['game_id', 'notes', 'played'];
 
     public function participants(){
     	return $this->hasMany('App\Participant');
@@ -15,10 +15,7 @@ class Playthrough extends Model{
     }
 
     public function game(){
-    	return $this->hasOne('App\Game', 'id', 'game_id')->select(['id', 'name']);
+    	return $this->hasOne('App\Game', 'id', 'game_id')->select(['id', 'name', 'photo', 'description']);
     }
 
-    public function winner(){
-        return $this->hasOne('App\Player', 'id', 'player_id');
-    }
 }
