@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Time extends Model{
 
@@ -9,8 +10,22 @@ class Time extends Model{
 
     protected $fillable = ['playthrough_id', 'action'];
 
-        public function times(){
-    	return $this->hasMany('App\Time');
+    public function playthrough(){
+    	return $this->belongsTo('App\Playthrough');
     }
+
+    public function scopeActive($query){
+        return $query->whereNotIn('playthrough_id', function($q){
+        	$q->select('playthrough_id')->from('times')->where('action', '=', 'finish');
+        })->distinct('playthrough_id')->get(['playthrough_id']);
+    }
+
+    public function scopeFinished($query){
+        return $query->whereIn('playthrough_id', function($q){
+        	$q->select('playthrough_id')->from('times')->where('action', '=', 'finish');
+        })->distinct('playthrough_id')->get(['playthrough_id']);
+    }
+
+
 
 }

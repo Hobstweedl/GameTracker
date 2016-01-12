@@ -34,6 +34,7 @@ Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'p
 Route::get('playthrough', ['uses' => 'PlaythroughController@index', 'as' => 'playthrough']);
 Route::get('playthrough/log/add', ['uses' => 'PlaythroughController@log', 'as' => 'playthrough.add.log']);
 Route::post('playthrough/log/add', ['uses' => 'PlaythroughController@storeLog', 'as' => 'playthrough.store.log']);
+Route::post('playthrough/log/action', ['uses' => 'PlaythroughController@storeAction', 'as' => 'playthrough.store.action']);
 Route::get('playthrough/historical/add', ['uses' => 'PlaythroughController@historical', 'as' => 'playthrough.add.historical']);
 Route::post('playthrough/historical/add', ['uses' => 'PlaythroughController@storeHistorical', 'as' => 'playthrough.store.historical']);
 Route::get('playthrough/active/{id}', ['uses' => 'PlaythroughController@active', 'as' => 'playthrough.active']);

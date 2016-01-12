@@ -6,10 +6,11 @@
 
 <div class="ui items">
 
-  @foreach($plays as $play)
+  @foreach($finished as $play)
+  {{ print_r($play->playthrough) }}
     <div class="item">
       <div class="ui small image">
-        <img src="{{ GlideImage::load($play->game->photo)->modify(['w'=> 175, 'h'=>175]) }}">
+        
       </div>
       <div class="content">
         <div class="header">Stuff Goes Here</div>

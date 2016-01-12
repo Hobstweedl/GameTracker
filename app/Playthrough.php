@@ -22,4 +22,5 @@ class Playthrough extends Model{
         return $this->hasMany('App\Time');
     }
 
+
 }

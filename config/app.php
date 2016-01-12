@@ -148,6 +148,7 @@ return [
         Kodeine\Acl\AclServiceProvider::class,
         Spatie\Glide\GlideServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
     ],
 
@@ -199,6 +200,7 @@ return [
         'View'       => Illuminate\Support\Facades\View::class,
         'GlideImage' => Spatie\Glide\GlideImageFacade::class,
         'Image'      => Intervention\Image\Facades\Image::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

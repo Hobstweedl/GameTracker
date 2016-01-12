@@ -11,7 +11,8 @@
         "intervention/image": "^2.3",
         "league/glide": "^0.3.5",
         "spatie/laravel-glide": "^2.2",
-        "guzzlehttp/guzzle": "^6.1"
+        "guzzlehttp/guzzle": "^6.1",
+        "barryvdh/laravel-debugbar": "^2.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
