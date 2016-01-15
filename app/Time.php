@@ -14,6 +14,10 @@ class Time extends Model{
     	return $this->belongsTo('App\Playthrough');
     }
 
+    public function game(){
+    	return $this->hasManyThrough('App\Game', 'App\Playthrough');
+    }
+
     public function scopeActive($query){
         return $query->whereNotIn('playthrough_id', function($q){
         	$q->select('playthrough_id')->from('times')->where('action', '=', 'finish');

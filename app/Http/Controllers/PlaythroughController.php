@@ -25,9 +25,11 @@ class PlaythroughController extends Controller
     public function index(){
 
         $finished = Time::with('playthrough')->finished();
+        $active = Time::with('playthrough')->active();
     
         return view('playthrough.index',[
             'finished' => $finished,
+            'active' => $active
         ]);
         
     }
