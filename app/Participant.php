@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participant extends Model{
 
-    protected $fillable = ['playthrough_id', 'user_id', 'game_id', 'score'];
+    protected $fillable = ['playthrough_id', 'user_id', 'game_id', 'score', 'winner'];
 
     public function participants(){
     	return $this->hasMany('App\Participant');

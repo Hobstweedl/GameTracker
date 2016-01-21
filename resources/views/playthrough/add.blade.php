@@ -1,10 +1,10 @@
 @extends('app')
 
-@section('title', 'Add Historical Play')
+@section('title', 'Add A New Play')
 
 @section('content')
 
-<form class="ui form" method="POST" action="{{ route('playthrough.store.historical') }}">
+<form class="ui form" method="POST" action="{{ route('playthrough.store') }}">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
   <div class="field">
@@ -16,7 +16,7 @@
       <div class="menu">
         @foreach($games as $game)
           <div class="item" data-value="{{ $game->id }}">
-            {!! $game->coverImage() !!}
+            {!! $game->coverImage(80, 80) !!}
             {{ $game->name }}
           </div>
         @endforeach
@@ -24,16 +24,17 @@
     </div>
   </div>
 
-  <div class="field">
-    <label>Date Played</label>
-    <input type="text" name="daterange"></input>
-  </div>
+  <div class="fields">
+    <div class="eight wide field">
+      <label>Date Played</label>
+      <input type="text" name="daterange"></input>
+    </div>
 
-  <div class="field">
-    <label>Notes</label>
-    <textarea name="notes"></textarea>
+    <div class="eight wide field">
+      <label>Duration</label>
+      <input type="text" name="timerange"></input>
+    </div>
   </div>
-
 
   <div class="field">
     
@@ -45,7 +46,7 @@
       <div class="menu">
         @foreach($players as $player)
         <div class="item" data-value="{{ $player->id }}">
-          {!! $player->profileImage() !!}
+          {!! $player->profileImage(100, 100) !!}
           {{ $player->nickname }}
         </div>
         @endforeach
@@ -62,19 +63,16 @@
       <div class="default text">Select Winners</div>
       <div class="menu list">
         <!-- List -->
-        @foreach($players as $player)
-        <div class="item" data-value="{{ $player->id }}">
-          {!! $player->profileImage() !!}
-          {{ $player->nickname }}
-        </div>
-        @endforeach
       </div>
     </div>
   </div>
 
-  <div class="field" id="scores">
-    
+  <div class="field">
+    <label>Notes</label>
+    <textarea name="notes"></textarea>
   </div>
+
+  <div class="field" id="scores"></div>
 
   <div class="field">
     <input type="submit" class="ui primary button" value="Start Tracking">
@@ -85,30 +83,33 @@
 
 
 <script>
+function createScore(id, name){
+  var top = '<div class="ui form" data-score="' + id + '""><div class="inline field">';
+  var label = '<label>' + name + '</label>';
+  var input = '<input type="text" name="person-' + id + '" placeholder="Score">'
+  var bottom = '</div></div>';    
+  return top+label+input+bottom;
+}
 $('#players').dropdown({
   placeholder:'Who played?',
 
-  /*onAdd: function(value, text, $choice) {
-    // custom action
-    console.log(value, text);
-    
-    var ch = $choice[0];
-    var item = '<div class="item" data-value="' + value + '">';
-    item += text;
-    item += '</div>';
+  onAdd: function(value, text, $choice) {
+
+    var item = '<div class="item" data-value="' + value + '">' + text + '</div>';
 
     $("#winners .list").append(item);
     $('#winners').dropdown('refresh');
+    var scoreEntry = createScore(value, text);
+    $("#scores").append(scoreEntry);
 
   },
-  onRemove: function(removedValue, removedText, $removedChoice){
-    var item = $("div").find("[data-value='" + removedValue + "']");
-    $(item).remove();
-    $("#players .list").append(item);
+  onRemove: function(removedValue, removedText, removedChoice){
+    $('#scores .form[data-score="' + removedValue + '"]').remove();
+    $("#winners .list").find("[data-value='" + removedValue + "']").remove();
     $('#winners').dropdown('refresh');
     $('#players').dropdown('refresh');
   }
-  */
+  
 });
 
 $('#winners').dropdown({
@@ -120,6 +121,7 @@ $('input[name="daterange"]').daterangepicker({
   timePicker: false,
   singleDatePicker: true
 });
+
 
 
 </script>

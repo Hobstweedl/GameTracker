@@ -32,11 +32,8 @@ Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'play
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
 
 Route::get('playthrough', ['uses' => 'PlaythroughController@index', 'as' => 'playthrough']);
-Route::get('playthrough/log/add', ['uses' => 'PlaythroughController@log', 'as' => 'playthrough.add.log']);
-Route::post('playthrough/log/add', ['uses' => 'PlaythroughController@storeLog', 'as' => 'playthrough.store.log']);
-Route::post('playthrough/log/action', ['uses' => 'PlaythroughController@storeAction', 'as' => 'playthrough.store.action']);
-Route::get('playthrough/historical/add', ['uses' => 'PlaythroughController@historical', 'as' => 'playthrough.add.historical']);
-Route::post('playthrough/historical/add', ['uses' => 'PlaythroughController@storeHistorical', 'as' => 'playthrough.store.historical']);
+Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
+Route::post('playthrough/add', ['uses' => 'PlaythroughController@store', 'as' => 'playthrough.store']);
 Route::get('playthrough/active/{id}', ['uses' => 'PlaythroughController@active', 'as' => 'playthrough.active']);
 
 
@@ -51,11 +48,8 @@ Route::get('admin/game/index', ['uses' => 'AdminController@indexGames', 'as' => 
 /*	Register and Login */
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
-
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-//Route::get('auth/register', 'Auth\AuthController@getRegister');
-//Route::post('auth/register', 'Auth\AuthController@postRegister');
 Route::controllers([
    'password' => 'Auth\PasswordController',
 ]);

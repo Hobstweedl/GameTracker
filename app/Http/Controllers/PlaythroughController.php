@@ -6,7 +6,6 @@ use App\User;
 use App\Game;
 use App\Participant;
 use App\Playthrough;
-use App\Time;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
@@ -19,98 +18,60 @@ class PlaythroughController extends Controller
 {
 
      public function __construct(){
-        $this->middleware('auth', ['only' => ['log', 'storeLog', 'storeHistorical', 'historical']]);
+        //$this->middleware('auth', ['only' => ['add', 'store']]);
     }
 
     public function index(){
-
-        $finished = Time::with('playthrough')->finished();
-        $active = Time::with('playthrough')->active();
-    
+        
+        $plays = Playthrough::orderBy('played', 'desc')->take(15)->get();
         return view('playthrough.index',[
-            'finished' => $finished,
-            'active' => $active
+            'plays' => $plays
         ]);
         
     }
-    
-    public function log(){
-        return view('playthrough.log',[
-            'players' => User::get(['id', 'nickname', 'profile_photo']),
-            'games' => Game::get(['id', 'name', 'photo'])
-        ]);
 
-    }
-
-    public function storeLog(Request $request){
-        $game = $request->get('game');
-        $users = $request->get('players');
-        print_r($game);
-        echo '<br><br>';
-        $userArr = explode(',', $users);
-        print_r($userArr);
-        $playthrough = Playthrough::create([
-            'game_id' => $game
-        ]);
-
-        $time = Time::create([
-            'playthrough_id' => $playthrough->id,
-            'action' => 'start',
-            'order' => 1
-        ]);
-
-        foreach($userArr as $user){
-            Participant::create([
-                'playthrough_id' => $playthrough->id,
-                'game_id' => $game,
-                'user_id' => $user
-            ]);
-        }
-        
-        return redirect()->route('playthrough');
-    }
-
-    public function storeAction(Request $request){
-
-        $total = Time::where('playthrough_id', '=', $request->playthrough_id)->count();
-        print_r($total);
-        /*$time = Time::create([
-            'playthrough_id' => $request->playthrough_id,
-            'action' => $request->action,
-
-        ]);
-        */
-    }
-
-
-    public function historical(){
-        return view('playthrough.historical',[
+    public function add(){
+        return view('playthrough.add',[
             'players' => User::get(['id', 'nickname', 'profile_photo']),
             'games' => Game::get(['id', 'name', 'photo'])
         ]);
     }
 
-    public function storeHistorical(Request $request){
+    public function store(Request $request){
         $game = $request->get('game');
         $users = $request->get('players');
+        $winners = $request->get('winners');
         $userArr = explode(',', $users);
+        $winnerArr = explode(',', $winners);
+
         $date = Carbon::createFromFormat('m/d/Y', $request->get('daterange'));
+        $time = Carbon::createFromFormat('g:i', $request->get('timerange'));
 
         $playthrough = Playthrough::create([
             'game_id' => $game,
             'played' => $date,
+            'duration' => $time,
             'notes' => $request->get('notes')
         ]);
 
         foreach($userArr as $user){
+
+            if( in_array($user, $winnerArr) ){
+                $w = 1;
+            } else{
+                $w = 0;
+            }
+
             Participant::create([
                 'playthrough_id' => $playthrough->id,
                 'game_id' => $game,
-                'user_id' => $user
+                'user_id' => $user,
+                'score' => $request->input('person-'.$user),
+                'winner' => $w
             ]);
         }
         
-        print_r( $request->all() );
+        return redirect()->route('playthrough');
     } 
 
 

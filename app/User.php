@@ -39,6 +39,17 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    public function profile($w = 175, $h = 145){
+        $params = ['w' => $h, 'h' => $h];
+        if( is_null($this->profile_photo) ){
+            $glide = GlideImage::load('default-image.jpg')->modify($params);
+        } else{
+            $glide = GlideImage::load($this->profile_photo)->modify($params);
+        }
+
+        return $glide;
+    }
+
     public function profileImage($w = 175, $h = 145){
         $params = ['w' => $h, 'h' => $h];
         if( is_null($this->profile_photo) ){

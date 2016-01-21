@@ -13,8 +13,6 @@ class Game extends Model{
 	    
         $glide = GlideImage::load($this->photo)->modify($params);
         return "<img src='$glide'>";	    
-        //return '<img src="{{ GlideImage::load(default-image.jpg)->modify($params) }}">';
-
 	}
 
     
