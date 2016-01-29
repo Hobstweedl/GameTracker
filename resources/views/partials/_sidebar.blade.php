@@ -10,7 +10,7 @@
     <div class="ui title">Playthrough</div>
   
     <div class="content menu {{ Request::is('playthrough*') ? "active" : "" }}">
-      <a class="item">View Playthrough</a>
+      <a class="item" href="{{ route('playthrough') }}">View Playthrough</a>
       <a class="item" href="{{ route('playthrough.add') }}">Add playthrough</a>
     </div>
   </div>

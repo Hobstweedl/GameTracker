@@ -4,26 +4,20 @@
 
 @section('content')
 
-<div class="ui items">
+<div class="ui special cards">
 
   @foreach($users as $player)
-    <div class="item">
-      <div class="ui small image">
-        {!! $player->profileImage() !!}
-      </div>
-      <div class="content">
-        <div class="header">{{ $player->nickname }}</div>
-        <div class="meta">
-          <span>&nbsp;</span>
-          
-        </div>
-        <div class="description">
-          <!--<img src="/images/wireframe/short-paragraph.png" class="ui wireframe image"> -->
-        </div>
-      </div>
-    </div>
+   @include('player.partials.card', $player)
   @endforeach
 
 </div>
 
+
+<script>
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+
+</script>
 @endsection

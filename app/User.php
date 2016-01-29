@@ -62,4 +62,8 @@ class User extends Model implements AuthenticatableContract,
         //return '<img src="{{ GlideImage::load(default-image.jpg)->modify($params) }}">';
 
     }
+
+    public function playthroughs(){
+        return $this->belongsToMany('App\Playthrough', 'participants');
+    }
 }

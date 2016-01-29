@@ -15,5 +15,8 @@ class Game extends Model{
         return "<img src='$glide'>";	    
 	}
 
+	public function playthroughs(){
+		return $this->hasMany('App\Playthrough');
+	}
     
 }

@@ -4,25 +4,10 @@
 
 @section('content')
 
-<div class="ui divided items">
+<div class="ui link cards">
 
   @foreach($games as $game)
-    <div class="item">
-      <div class="ui small image">
-        <img src="{{ GlideImage::load($game->photo)->modify(['w'=> 175, 'h'=>175]) }}"><!-- 175 x 145 -->
-      </div>
-      <div class="content">
-        <a href="{{route('game.show', $game->id)}}" class="header">{{ $game->name}}</a>
-        <div class="meta">
-          <span>here is where a label will go?</span>
-        </div>
-        <div class="description">
-        {{ $game->description }}
-
-          <!--<img src="/images/wireframe/short-paragraph.png" class="ui wireframe image"> -->
-        </div>
-      </div>
-    </div>
+    @include('game.partials.card', $game)
   @endforeach
 
 </div>

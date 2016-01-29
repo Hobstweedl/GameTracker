@@ -20,7 +20,8 @@ class GameController extends Controller
     }
 
     public function index(){
-        $games = Game::get();
+        $games = Game::with('playthroughs')->get();
+
         return view('game.index', ['games' => $games]);
     }
     /**

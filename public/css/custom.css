@@ -1,7 +1,13 @@
 .ui.container { margin-top: 70px;}
-
 .hidden{display: none;}
 .show{display:block;}
+
+
+.eq-card.ui.card {
+  flex: 1; /* Shrink and grow according to available height */
+  flex-basis: 0;
+}
+
 @media only screen and (min-width: 1200px){
 
 }
