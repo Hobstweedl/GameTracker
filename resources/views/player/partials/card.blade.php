@@ -10,6 +10,24 @@
       </div>
     </div>
     {!! $player->profileImage(300, 300) !!}
+
+    @if($player->isAccount() )
+      <div class="ui right blue corner label">
+        <i class="child icon"></i>
+      </div>
+    @endif
+    
+    @foreach( $roles as $role)
+      @if( $player->is($role->slug) )
+        <div class="ui {{ $role->color }} ribbon label">
+        @if( $role->icon)
+          <i class="{{ $role->icon }} icon"></i> 
+        @endif
+        {{$role->name}}
+        </div>
+      @endif
+    @endforeach
+
   </div>
     <div class="content">
       <a class="header">{{$player->nickname}}</a>
@@ -17,7 +35,7 @@
         <span class="date">Added {{ $player->created_at->format('F jS, Y') }}</span>
       </div>
       <div class="description">
-        Descriptions go here
+        {{ $player->bio }}
       </div>
     </div>
     <div class="extra content">

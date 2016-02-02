@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('game', ['uses' => 'GameController@index', 'as' => 'game']);
 Route::get('game/add', ['uses' => 'GameController@add', 'as' => 'game.add']);
 Route::post('game/add', ['uses' => 'GameController@store', 'as' => 'game.store']);
-Route::get('game/show/{id}', ['uses' => 'GameController@show', 'as' => 'game.show']);
+Route::get('game/{id}', ['uses' => 'GameController@show', 'as' => 'game.show']);
 
 /* Player */
 Route::get('player', ['uses' => 'PlayerController@index', 'as' => 'player']);
@@ -30,6 +30,7 @@ Route::get('player/add', ['uses' => 'PlayerController@add', 'as' => 'player.add'
 Route::post('player/add', ['uses' => 'PlayerController@store', 'as' => 'player.store']);
 Route::get('player/edit/{id}', ['uses' => 'PlayerController@edit', 'as' => 'player.edit']);
 Route::post('player/edit/{id}', ['uses' => 'PlayerController@update', 'as' => 'player.update']);
+Route::get('player/{id}', ['uses' => 'PlayerController@show', 'as' => 'player.show']);
 
 Route::get('playthrough', ['uses' => 'PlaythroughController@index', 'as' => 'playthrough']);
 Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
@@ -42,6 +43,8 @@ Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);
 Route::get('admin/roles', ['uses' => 'AdminController@roles', 'as' => 'admin.roles']);
 Route::get('admin/roles/create', ['uses' => 'AdminController@createRole', 'as' => 'admin.roles.create']);
 Route::post('admin/roles/create', ['uses' => 'AdminController@storeRole', 'as' => 'admin.roles.store']);
+Route::post('admin/roles/update', ['uses' => 'AdminController@updateRole', 'as' => 'admin.roles.update']);
+
 Route::get('admin/user/edit/{id}', ['uses' => 'AdminController@user', 'as' => 'admin.user.edit']);
 Route::get('admin/game/index', ['uses' => 'AdminController@indexGames', 'as' => 'admin.game.index']);
 

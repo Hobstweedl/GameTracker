@@ -4,13 +4,7 @@
   <div class="item">
     <div class="right floated content">
       <div class="ui buttons">
-
-        <form class="ui form" method="POST" action="">
-          <input type="hidden" name="_token" value="{{ csrf_token() }}">
-          <input type="hidden" name="id" value="{{ $role->id}}">
-          <input type="hidden" name="_method" value="PUT">
-          <button type="button" class="ui icon positive button"><i class="edit icon"></i></button>
-        </form>
+        <button class="ui icon positive button toggleModal" data-id="{{$role->id}}"><i class="edit icon"></i></button>
 
         <form class="ui form" method="POST" action="">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -22,10 +16,17 @@
       </div>
     </div>
 
-    <div class="ui avatar image"></div>
     <div class="content">
-      <strong>{{ $role->name }}</strong> - {{ $role->description }}
+      <div class="ui horizontal {{ $role->color}} label">
+      @if($role->icon)
+        <i class=" {{ $role->icon }} icon"></i>
+      @endif
+      {{ $role->name }}</div> - {{ $role->description }}
     </div>
+    
+  
   </div>
+
+  @include('admin.partials.editRole', $role)
 @endforeach
 </div>

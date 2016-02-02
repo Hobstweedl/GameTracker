@@ -39,10 +39,23 @@ class AdminController extends Controller
         $role->name = $request->input('name');
         $role->slug = $request->input('slug');
         $role->description = $request->input('description');
+        $role->icon = $request->input('icon');
+        $role->color = $request->input('color');
         $role->save();
 
         return redirect()->back();
 
+    }
+
+    public function updateRole(Request $request){
+        Role::where('id', '=', $request->input('id') )->update([
+            'name' => $request->input('name'),
+            'slug' => $request->input('slug'),
+            'description' => $request->input('description'),
+            'icon' => $request->input('icon'),
+            'color' => $request->input('color'),
+        ]);
+        return redirect()->back();
     }
 
     public function indexGames(){

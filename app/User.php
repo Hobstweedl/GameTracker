@@ -30,7 +30,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['username', 'email', 'password'];
+    protected $fillable = ['username', 'email', 'password', 'bio'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -65,5 +65,13 @@ class User extends Model implements AuthenticatableContract,
 
     public function playthroughs(){
         return $this->belongsToMany('App\Playthrough', 'participants');
+    }
+
+    public function isAccount(){
+        if ($this->password == 'XXX'){
+            return false;
+        } else{
+            return true;
+        }
     }
 }

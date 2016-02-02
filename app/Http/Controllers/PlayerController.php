@@ -22,7 +22,7 @@ class PlayerController extends Controller
 
     public function index(){
         $users = User::get();
-        return view('player.index', ['users' => $users]);
+        return view('player.index', ['users' => $users, 'roles' => Role::get()]);
     }
 
 
@@ -52,6 +52,7 @@ class PlayerController extends Controller
         $user->username = $request->input('username');
         $user->nickname = $request->input('nickname');
         $user->email = $request->input('email');
+        $user->bio = $request->input('bio');
 
         if( $request->has('password') ){
             $user->password =  bcrypt($request->input('password') );

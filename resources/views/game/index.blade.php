@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="ui link cards">
+<div class="ui special cards">
 
   @foreach($games as $game)
     @include('game.partials.card', $game)
@@ -12,4 +12,11 @@
 
 </div>
 
+<script>
+
+$('.special.cards .image').dimmer({
+  on: 'hover'
+});
+
+</script>
 @endsection

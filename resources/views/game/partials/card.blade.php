@@ -1,7 +1,14 @@
 
 
 <div class="ui card">
-  <div class="image">
+  <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui inverted button">View Details</div>
+          </div>
+        </div>
+      </div>
     <img src="{{ GlideImage::load($game->photo) }}">
   </div>
   <div class="content">

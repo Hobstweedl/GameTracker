@@ -21,16 +21,24 @@
         <input type="hidden" name="offsety" value="0">
         <input type="hidden" name="height" value="0">
         <input type="hidden" name="width" value="0">
+        
+        <div class="two fields">
+            <div class="field">
+                <label for="username">Username</label>
+                <input type="text" name="username" value="{{ $player->username }}" placeholder="Your username...">
+            </div>
 
-        <div class="field">
-            <label for="username">Username</label>
-            <input type="text" name="username" value="{{ $player->username }}" placeholder="Your username...">
+            <div class="field">
+                <label for="nickname">Nickname</label>
+                <input type="text" name="nickname" value="{{ $player->nickname }}" placeholder="Make it funny!">
+            </div>
         </div>
 
         <div class="field">
-            <label for="nickname">Nickname</label>
-            <input type="text" name="nickname" value="{{ $player->nickname }}" placeholder="Make it funny!">
+            <label>Biography</label>
+            <textarea rows="2" name="bio">{{ $player->bio }}</textarea>
         </div>
+        
 
         <div class="field">
           <div class="ui toggle checkbox">
@@ -44,19 +52,22 @@
                 <label for="email">Email</label>
                 <input type="email" name="email" value="{{ $player->email }}">
             </div>
+            
+            <div class="two fields">
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                </div>
 
-            <div class="field">
-                <label for="password">Password</label>
-                <input type="password" name="password">
+                <div class="field">
+                    <label for="password_confirmation">Confirm Password</label>
+                    <input type="password" name="password_confirmation">
+                </div>
             </div>
-
-            <div class="field">
-                <label for="password_confirmation">Confirm Password</label>
-                <input type="password" name="password_confirmation">
-            </div>
+        
         </div>
 
-        @if( Auth::user()->is('admin')) 
+        @if( Auth::user()->is('administrator')) 
             <div class="ui horizontal divider">Roles</div>
 
             <select class="ui fluid search dropdown" name="roles[]" multiple="">
