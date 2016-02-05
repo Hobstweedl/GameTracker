@@ -1,16 +1,10 @@
 @extends('app')
 
-@section('title', 'Administration Roles')
+@section('title', 'Administration Permissions')
 
 @section('content')
 
-  	<h3>Roles</h3>
-  	@include('admin.partials.roles')
-  	
-    <button class="ui fluid button primary createRole">
-      Create New Role
-    </button>
-  	@include('admin.roleCreate')
+  @include('admin.partials.permissions', $permissions)
 
   <script>
 
@@ -18,25 +12,26 @@
       createLabel('#modaly')
     });
 
-    // Toggles for Role and permission Edits
-    $(".toggleRoleModal").click(function(){
+    $(".togglePermissionModal").click(function(){
       var id = $(this).data('id');
-      $('#roleModal-'+id).modal('show');    
+      $('#permissionModal-'+id).modal('show');    
     });
+    
 
     $(".submitForm").on('click', function(){
       $("#createRoleForm").submit();
     });
 
 
-    $(".updateRole").on('click', function(){
+    $(".updatePermission").on('click', function(){
       var id = $(this).data('submit');
-      $("#updateRoleForm"+id).submit();
+      //$("#updateRoleForm"+id).submit();
     });
 
 
-  	$('.menu .item').tab();
+    $('.menu .item').tab();
     $('#modaly').modal('attach events', '.createRole', 'show');
+    $('.ui.accordion').accordion(); 
 
     function createLabel(identifier){
       var icon = $(identifier + ' input[name="icon"]').val();

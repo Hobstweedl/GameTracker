@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Game;
+use Input;
 use App\Participant;
 use App\Playthrough;
 use Illuminate\Http\Request;
+use App\Http\Requests\storePlaythroughRequest;
 use App\Http\Controllers\Controller;
 use Kodeine\Acl\Models\Eloquent\Role;
 use Illuminate\Support\Facades\Storage;
@@ -37,7 +39,8 @@ class PlaythroughController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function store(storePlaythroughRequest $request){
+        print_r( $request->all() );
         $game = $request->get('game');
         $users = $request->get('players');
         $winners = $request->get('winners');
@@ -47,12 +50,13 @@ class PlaythroughController extends Controller
         $date = Carbon::createFromFormat('m/d/Y', $request->get('daterange'));
         $time = Carbon::createFromFormat('g:i', $request->get('timerange'));
 
-        $playthrough = Playthrough::create([
+        /*$playthrough = Playthrough::create([
             'game_id' => $game,
             'played' => $date,
             'duration' => $time,
             'notes' => $request->get('notes')
         ]);
+        */
 
         foreach($userArr as $user){
 
@@ -62,16 +66,17 @@ class PlaythroughController extends Controller
                 $w = 0;
             }
 
-            Participant::create([
+            /*Participant::create([
                 'playthrough_id' => $playthrough->id,
                 'game_id' => $game,
                 'user_id' => $user,
                 'score' => $request->input('person-'.$user),
                 'winner' => $w
             ]);
+            */
         }
         
-        return redirect()->route('playthrough');
+        //return redirect()->route('playthrough');
     } 
 
 

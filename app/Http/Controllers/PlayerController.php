@@ -30,6 +30,11 @@ class PlayerController extends Controller
         return view('player.add');
     }
 
+    public function show($id){
+        $player = User::with('playthroughs', 'playthroughs.game', 'playthroughs.players')->find($id);
+        return view('player.show', ['player' => $player ] );
+    }
+
     public function edit($id){
 
         return view('player.edit', [

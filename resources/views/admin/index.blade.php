@@ -3,30 +3,31 @@
 @section('title', 'Administration')
 
 @section('content')
-    <p>There's a lot to get done in here</p>
+  
+  <p>There's a lot to get done in here</p>
 	<div class="ui top attached tabular menu">
 		<a class="active item" data-tab="roles">Roles</a>
 		<a class="item" data-tab="permissions">Permissions</a>
 		<a class="item" data-tab="users">Users</a>
 	</div>
 
-	<div class="ui bottom attached tab segment active" data-tab="roles">
-		<h3>Roles</h3>
-		@include('admin.partials.roles')
-		
+  <div class="ui bottom attached tab segment active" data-tab="roles">
+  	<h3>Roles</h3>
+  	@include('admin.partials.roles')
+  	
     <button class="ui fluid button primary createRole">
       Create New Role
     </button>
-		@include('admin.roleCreate')
+  	@include('admin.roleCreate')
   </div>
 
-      <div class="ui bottom attached tab segment" data-tab="permissions">
-        permissions
-      </div>
+  <div class="ui bottom attached tab segment" data-tab="permissions">
+    @include('admin.partials.permissions', $permissions)
+  </div>
 
-      <div class="ui bottom attached tab segment" data-tab="users">
-        @include('admin.partials.users')
-      </div>
+  <div class="ui bottom attached tab segment" data-tab="users">
+    @include('admin.partials.users')
+  </div>
 
   <script>
 
@@ -34,22 +35,37 @@
       createLabel('#modaly')
     });
 
-    $(".toggleModal").click(function(){
+    // Toggles for Role and permission Edits
+    $(".toggleRoleModal").click(function(){
       var id = $(this).data('id');
-      $('#modal-'+id).modal('show');    
+      $('#roleModal-'+id).modal('show');    
     });
+
+    $(".togglePermissionModal").click(function(){
+      var id = $(this).data('id');
+      $('#permissionModal-'+id).modal('show');    
+    });
+    
 
     $(".submitForm").on('click', function(){
       $("#createRoleForm").submit();
     });
+
 
     $(".updateRole").on('click', function(){
       var id = $(this).data('submit');
       $("#updateRoleForm"+id).submit();
     });
 
+    $(".updatePermission").on('click', function(){
+      var id = $(this).data('submit');
+      //$("#updateRoleForm"+id).submit();
+    });
+
+
   	$('.menu .item').tab();
-    $('#modaly').modal('attach events', '.createRole', 'show'); 
+    $('#modaly').modal('attach events', '.createRole', 'show');
+    $('.ui.accordion').accordion(); 
 
     function createLabel(identifier){
       var icon = $(identifier + ' input[name="icon"]').val();

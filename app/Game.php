@@ -15,6 +15,12 @@ class Game extends Model{
         return "<img src='$glide'>";	    
 	}
 
+	public function gameCover($w = 175, $h = 145){
+	    $params = ['w' => $h, 'h' => $h];
+	    
+        return GlideImage::load($this->photo)->modify($params);
+	}
+
 	public function playthroughs(){
 		return $this->hasMany('App\Playthrough');
 	}

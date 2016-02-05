@@ -4,6 +4,19 @@
 
 @section('content')
 
+ @if (count($errors) > 0)
+  <div class="ui negative message">
+    <div class="header">
+      There were some problems with your input.
+    </div>
+    <ul class="list">
+      @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+      @endforeach
+    </ul>
+  </div>
+@endif
+
 <form class="ui form" method="POST" action="{{ route('playthrough.store') }}">
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
@@ -27,12 +40,12 @@
   <div class="fields">
     <div class="eight wide field">
       <label>Date Played</label>
-      <input type="text" name="daterange"></input>
+      <input type="text" name="daterange" value="{{ Input::old('daterange') }}"></input>
     </div>
 
     <div class="eight wide field">
       <label>Duration</label>
-      <input type="text" name="timerange"></input>
+      <input type="text" name="timerange" value="{{ Input::old('timerange') }}"></input>
     </div>
   </div>
 
@@ -69,7 +82,9 @@
 
   <div class="field">
     <label>Notes</label>
-    <textarea name="notes"></textarea>
+    <textarea name="notes">
+      {{ Input::old("notes") }}
+    </textarea>
   </div>
 
   <div class="field" id="scores"></div>
@@ -90,8 +105,11 @@ function createScore(id, name){
   var bottom = '</div></div>';    
   return top+label+input+bottom;
 }
+
+
 $('#players').dropdown({
   placeholder:'Who played?',
+
 
   onAdd: function(value, text, $choice) {
 
@@ -110,19 +128,23 @@ $('#players').dropdown({
     $('#players').dropdown('refresh');
   }
   
-});
+})
+
+var playerVals = "{{ Input::old('players') !== null ? Input::old('players') : '' }}"
+
+
 
 $('#winners').dropdown({
   placeholder:'Who won?'
 });
-$('#game').dropdown();
+
+var selectedGameID = {{ Input::old("game") }}
+$('#game').dropdown('set selected', selectedGameID );
 
 $('input[name="daterange"]').daterangepicker({
   timePicker: false,
   singleDatePicker: true
 });
-
-
 
 </script>
 @endsection

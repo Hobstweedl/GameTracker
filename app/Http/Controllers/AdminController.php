@@ -23,11 +23,20 @@ class AdminController extends Controller
     public function index(){
         $roles = Role::get();
         $players = User::get();
-        return view('admin.index', ['roles' => $roles, 'players' => $players]);
+        $permissions = Permission::get();
+        return view('admin.index', ['roles' => $roles, 'players' => $players, 'permissions' => $permissions]);
     }
     
     public function roles(){
-        return view('admin.roles');
+        return view('admin.roles', ['roles' => Role::get() ]);
+    }
+
+     public function permissions(){
+        return view('admin.permissions', ['permissions' => Permission::get() ]);
+    }
+
+     public function users(){
+        return view('admin.users', ['players' => User::get() ]);
     }
 
     public function createRole(){
@@ -36,11 +45,11 @@ class AdminController extends Controller
 
     public function storeRole(Request $request){
         $role = new Role();
-        $role->name = $request->input('name');
-        $role->slug = $request->input('slug');
+        $role->name        = $request->input('name');
+        $role->slug        = $request->input('slug');
         $role->description = $request->input('description');
-        $role->icon = $request->input('icon');
-        $role->color = $request->input('color');
+        $role->icon        = $request->input('icon');
+        $role->color       = $request->input('color');
         $role->save();
 
         return redirect()->back();
@@ -49,24 +58,24 @@ class AdminController extends Controller
 
     public function updateRole(Request $request){
         Role::where('id', '=', $request->input('id') )->update([
-            'name' => $request->input('name'),
-            'slug' => $request->input('slug'),
+            'name'        => $request->input('name'),
+            'slug'        => $request->input('slug'),
             'description' => $request->input('description'),
-            'icon' => $request->input('icon'),
-            'color' => $request->input('color'),
+            'icon'        => $request->input('icon'),
+            'color'       => $request->input('color'),
         ]);
         return redirect()->back();
     }
 
     public function indexGames(){
-        $games = Game::get();
-        $bgg = new \App\Bgg;
+        $games   = Game::get();
+        $bgg     = new \App\Bgg;
         $uploadr = new \App\Uploadr;
 
         foreach($games as $game){
 
-            $url = 'http:'.$bgg->getGameImage($game->bgg_id );
-            $path = $uploadr->uploadFromUrl($url, $game->id, 'game');
+            $url = 'http:'.$bgg->getGameImage( $game->bgg_id );
+            $path = $uploadr->uploadFromUrl( $url, $game->id, 'game' );
             $game->photo = $path;
             $game->save();
         }

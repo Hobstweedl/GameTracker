@@ -39,11 +39,18 @@
   
 
   @if (Auth::check())
-  <a class="item" href="{{ route('admin') }}">
-    <i class="settings icon"></i>
-    Settings
-  </a>
 
+  <div class="ui fluid accordion item">
+    <i class="users icon"></i>
+    <div class="ui title">Settings</div>
+  
+    <div class="content menu {{ Request::is('admin*') ? "active" : "" }}">
+      <a class="item" href="{{ route('admin') }}">View Everything</a>
+      <a class="item" href="{{ route('admin.roles') }}">Roles</a>
+      <a class="item" href="{{ route('admin.permissions') }}">Permissions</a>
+      <a class="item" href="{{ route('admin.users') }}">Players</a>
+    </div>
+  </div>
   @endif
 
 <script>

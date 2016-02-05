@@ -1,4 +1,4 @@
-<div class="ui modal" id="modal-{{$role->id}}">
+<div class="ui modal" id="roleModal-{{$role->id}}">
     <i class="close icon"></i>
     <div class="header">
       Edit Role

@@ -4,7 +4,7 @@
   <div class="item">
     <div class="right floated content">
       <div class="ui buttons">
-        <button class="ui icon positive button toggleModal" data-id="{{$role->id}}"><i class="edit icon"></i></button>
+        <button class="ui icon positive button toggleRoleModal" data-id="{{$role->id}}"><i class="edit icon"></i></button>
 
         <form class="ui form" method="POST" action="">
           <input type="hidden" name="_token" value="{{ csrf_token() }}">

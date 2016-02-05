@@ -64,9 +64,9 @@ class User extends Model implements AuthenticatableContract,
     }
 
     public function playthroughs(){
-        return $this->belongsToMany('App\Playthrough', 'participants');
+        return $this->belongsToMany('App\Playthrough', 'participants')->orderBy('played', 'desc');
     }
-
+    
     public function isAccount(){
         if ($this->password == 'XXX'){
             return false;

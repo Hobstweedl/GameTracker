@@ -13,10 +13,26 @@
 
 use App\Bgg;
 use App\Uploadr;
+use Kodeine\Acl\Models\Eloquent\Permission;
 
 Route::get('/', function () {
     return view('app');
 });
+
+/*Route::get('perm', function(){
+	$permission = new Permission();
+	$permUser = $permission->create([ 
+	    'name'        => 'game',
+	    'slug'        => [          // pass an array of permissions.
+	        'create'     => true,
+	        'view'       => true,
+	        'update'     => true,
+	        'delete'     => true
+	    ],
+	    'description' => 'manage game permissions'
+	]);
+});
+*/
 
 /* Game */
 Route::get('game', ['uses' => 'GameController@index', 'as' => 'game']);
@@ -40,11 +56,17 @@ Route::get('playthrough/active/{id}', ['uses' => 'PlaythroughController@active',
 
 /* Admin */
 Route::get('admin', ['uses' => 'AdminController@index', 'as' => 'admin']);
+
 Route::get('admin/roles', ['uses' => 'AdminController@roles', 'as' => 'admin.roles']);
 Route::get('admin/roles/create', ['uses' => 'AdminController@createRole', 'as' => 'admin.roles.create']);
 Route::post('admin/roles/create', ['uses' => 'AdminController@storeRole', 'as' => 'admin.roles.store']);
 Route::post('admin/roles/update', ['uses' => 'AdminController@updateRole', 'as' => 'admin.roles.update']);
 
+Route::get('admin/permissions', ['uses' => 'AdminController@permissions', 'as' => 'admin.permissions']);
+Route::get('admin/permissions/create', ['uses' => 'AdminController@createPermission', 'as' => 'admin.permissions.create']);
+Route::post('admin/permissions/update', ['uses' => 'AdminController@updatePermission', 'as' => 'admin.permissions.update']);
+
+Route::get('admin/users', ['uses' => 'AdminController@users', 'as' => 'admin.users']);
 Route::get('admin/user/edit/{id}', ['uses' => 'AdminController@user', 'as' => 'admin.user.edit']);
 Route::get('admin/game/index', ['uses' => 'AdminController@indexGames', 'as' => 'admin.game.index']);
 

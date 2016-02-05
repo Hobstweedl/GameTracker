@@ -68,7 +68,7 @@ class GameController extends Controller
 
     public function show($id){
 
-        $game = Game::find($id);
+        $game = Game::with('playthroughs', 'playthroughs.players')->find($id);
         $bgg = new \App\Bgg;
         $api = $bgg->getBoardGame($game->bgg_id);
         return view('game.show', [
