@@ -38,4 +38,17 @@ class storePlaythroughRequest extends Request
 
         return $rules;
     }
+
+    public function messages(){
+        $messages = [];
+
+        $userArr = explode(',', $this->request->get('players'));
+        foreach( $userArr as $key => $val ){
+            $messages['person-'.$val.'.required'] = 'You forgot to add some scores';
+        }
+
+        return $messages;
+    }
+
+
 }

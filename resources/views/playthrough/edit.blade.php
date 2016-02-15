@@ -40,12 +40,12 @@
   <div class="fields">
     <div class="eight wide field">
       <label>Date Played</label>
-      <input type="text" name="daterange" value="{{ Input::old('daterange') }}"></input>
+      <input type="text" name="daterange" value="{{ $playthrough->played->format('m/d/Y') }}"></input>
     </div>
 
     <div class="eight wide field">
       <label>Duration</label>
-      <input type="text" name="timerange" value="{{ Input::old('timerange') }}"></input>
+      <input type="text" name="timerange" value="{{ $playthrough->duration->format('g:i') }}"></input>
     </div>
   </div>
 
@@ -83,7 +83,7 @@
   <div class="field">
     <label>Notes</label>
     <textarea name="notes">
-      {{ Input::old("notes") }}
+      {{ $playthrough->notes }}
     </textarea>
   </div>
 
@@ -129,17 +129,19 @@ $('#players').dropdown({
   
 })
 
-var playerVals = "{{ Input::old('players') !== null ? Input::old('players') : '' }}";
-var newVals = playerVals.split(",");
-$("#players").dropdown('set selected', newVals);
-
+$.get( "{{ route('api.players', $p_id) }}", function( json ) {
+  var playerVals = "{{ Input::old('players') !== null ? Input::old('players') : '' }}";
+  console.log(playerVals);
+  var newVals = playerVals.split(",");
+  $("#players").dropdown('set selected', newVals);
+});
 
 
 $('#winners').dropdown({
   placeholder:'Who won?'
 });
 
-var selectedGameID = {{ Input::old("game") }}
+var selectedGameID = {{ Input::old("game") !== null ? Input::old('game') : $playthrough->game->id  }}
 $('#game').dropdown('set selected', selectedGameID );
 
 $('input[name="daterange"]').daterangepicker({

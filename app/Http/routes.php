@@ -13,6 +13,7 @@
 
 use App\Bgg;
 use App\Uploadr;
+use App\Playthrough;
 use Kodeine\Acl\Models\Eloquent\Permission;
 
 Route::get('/', function () {
@@ -51,7 +52,7 @@ Route::get('player/{id}', ['uses' => 'PlayerController@show', 'as' => 'player.sh
 Route::get('playthrough', ['uses' => 'PlaythroughController@index', 'as' => 'playthrough']);
 Route::get('playthrough/add', ['uses' => 'PlaythroughController@add', 'as' => 'playthrough.add']);
 Route::post('playthrough/add', ['uses' => 'PlaythroughController@store', 'as' => 'playthrough.store']);
-Route::get('playthrough/active/{id}', ['uses' => 'PlaythroughController@active', 'as' => 'playthrough.active']);
+Route::get('playthrough/edit/{id}', ['uses' => 'PlaythroughController@edit', 'as' => 'playthrough.edit']);
 
 
 /* Admin */
@@ -88,4 +89,14 @@ Route::get('api/game/{id}', ['as' => 'api.game', function($id){
 Route::get('api/search/{text}', ['as' => 'api.search', function($text = null){
 	$bgg = new \App\Bgg;
 	return response()->json( $bgg->search($text), 200, [], JSON_PRETTY_PRINT );
+}]);
+
+Route::get('api/playthrough/players/{id}', ['as' => 'api.players', function($id){
+	
+	$st = "";
+	$players = Playthrough::find($id)->participants;
+	foreach($players as $p){
+		$st .= $p->id.',';
+	}
+	return $st;
 }]);

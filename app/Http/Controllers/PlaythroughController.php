@@ -50,13 +50,12 @@ class PlaythroughController extends Controller
         $date = Carbon::createFromFormat('m/d/Y', $request->get('daterange'));
         $time = Carbon::createFromFormat('g:i', $request->get('timerange'));
 
-        /*$playthrough = Playthrough::create([
+        $playthrough = Playthrough::create([
             'game_id' => $game,
             'played' => $date,
             'duration' => $time,
             'notes' => $request->get('notes')
         ]);
-        */
 
         foreach($userArr as $user){
 
@@ -66,18 +65,27 @@ class PlaythroughController extends Controller
                 $w = 0;
             }
 
-            /*Participant::create([
+            Participant::create([
                 'playthrough_id' => $playthrough->id,
                 'game_id' => $game,
                 'user_id' => $user,
                 'score' => $request->input('person-'.$user),
                 'winner' => $w
             ]);
-            */
         }
         
-        //return redirect()->route('playthrough');
+        return redirect()->route('playthrough');
     } 
+
+    public function edit($id){
+
+        return view('playthrough.edit',[
+            'players' => User::get(['id', 'nickname', 'profile_photo']),
+            'games' => Game::get(['id', 'name', 'photo']),
+            'playthrough' => Playthrough::find($id),
+            'p_id' => $id
+        ]);
+    }
 
 
 }

@@ -17,7 +17,8 @@ class Playthrough extends Model{
     }
 
     public function players(){
-        return $this->belongsToMany('App\User', 'participants')->orderBy('score', 'desc')->select('nickname', 'score');
+        return $this->belongsToMany('App\User', 'participants')
+        ->orderBy('score', 'desc')->select('users.id as player_id', 'nickname', 'score');
     }
 
     public function game(){
