@@ -16,6 +16,10 @@ class Playthrough extends Model{
     	return $this->hasMany('App\Participant');
     }
 
+    public function winners(){
+        return $this->hasMany('App\Participant');
+    }
+
     public function players(){
         return $this->belongsToMany('App\User', 'participants')
         ->orderBy('score', 'desc')->select('users.id as player_id', 'nickname', 'score');

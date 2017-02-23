@@ -22,8 +22,7 @@
 					</div>
 				</div>
 			</div>
-
-			<img src="{{ GlideImage::load($play->game->photo) }}">
+			<img src="{{ GlideImage::load($play->game->photo, [290, 290]) }}">
 		</div>
 
 		<div class="content">
@@ -49,4 +48,8 @@
 			{{ $play->duration->format('G:i') }}
 			</span>
 		</div>
+		<a class="ui bottom attached button" href="{{ route('playthrough.edit', $play->id) }}">
+			<i class="add icon"></i>
+			Edit Playthrough
+		</a>
 	</div>

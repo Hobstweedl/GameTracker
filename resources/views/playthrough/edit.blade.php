@@ -1,6 +1,6 @@
 @extends('app')
 
-@section('title', 'Add A New Play')
+@section('title', 'Edit Playthrough')
 
 @section('content')
 
@@ -58,10 +58,10 @@
       <div class="default text">Select Players</div>
       <div class="menu">
         @foreach($players as $player)
-        <div class="item" data-value="{{ $player->id }}">
-          {!! $player->profileImage(100, 100) !!}
-          {{ $player->nickname }}
-        </div>
+          <div class="item" data-value="{{ $player->id }}" data-score="{{ $player_scores[$player->id] }}" >
+            {!! $player->profileImage(100, 100) !!}
+            {{ $player->nickname }}
+          </div>
         @endforeach
       </div>
     </div>
@@ -98,10 +98,11 @@
 
 
 <script>
-function createScore(id, name){
+function createScore(id, name, score){
+  console.log(score);
   var top = '<div class="ui form" data-score="' + id + '""><div class="inline field">';
   var label = '<label>' + name + '</label>';
-  var input = '<input type="text" name="person-' + id + '" placeholder="Score">'
+  var input = '<input type="text" name="person-' + id + '" placeholder="Score" value="' + score + '">'
   var bottom = '</div></div>';    
   return top+label+input+bottom;
 }
@@ -110,13 +111,12 @@ function createScore(id, name){
 $('#players').dropdown({
   placeholder:'Who played?',
 
-  onAdd: function(value, text, $choice) {
+  onAdd: function(value, text, choice) {
 
     var item = '<div class="item" data-value="' + value + '">' + text + '</div>';
-
     $("#winners .list").append(item);
     $('#winners').dropdown('refresh');
-    var scoreEntry = createScore(value, text);
+    var scoreEntry = createScore(value, text, $(choice).data('score'));
     $("#scores").append(scoreEntry);
 
   },
@@ -129,11 +129,25 @@ $('#players').dropdown({
   
 })
 
-$.get( "{{ route('api.players', $p_id) }}", function( json ) {
-  var playerVals = "{{ Input::old('players') !== null ? Input::old('players') : '' }}";
-  console.log(playerVals);
-  var newVals = playerVals.split(",");
-  $("#players").dropdown('set selected', newVals);
+$.get( "{{ route('api.players', $p_id) }}", function( oldVals ) {
+  var newVals = "{{ Input::old('players') }}";
+
+  if(newVals.length == 0){
+    $("#players").dropdown('set selected', oldVals.split(",") );
+  } else{
+    $("#players").dropdown('set selected', newVals.split(",") );
+  }
+
+});
+
+$.get( "{{ route('api.winners', $p_id) }}", function( oldVals ) {
+  var newVals = "{{ Input::old('winners') }}";
+  if(newVals.length == 0){
+    $("#winners").dropdown('set selected', oldVals.split(",") );
+  } else{
+    $("#winners").dropdown('set selected', newVals.split(",") );
+  }
+
 });
 
 

@@ -95,8 +95,24 @@ Route::get('api/playthrough/players/{id}', ['as' => 'api.players', function($id)
 	
 	$st = "";
 	$players = Playthrough::find($id)->participants;
-	foreach($players as $p){
-		$st .= $p->id.',';
+	foreach($players as $k => $p){
+		if($k > 0){
+			$st .= ',';
+		}
+		$st .= "$p->user_id";
+	}
+	return $st;
+}]);
+
+Route::get('api/playthrough/winners/{id}', ['as' => 'api.winners', function($id){
+	
+	$st = "";
+	$players = Playthrough::find($id)->participants()->where('winner', '=', 1)->get(['user_id']);
+	foreach($players as $k => $p){
+		if($k > 0){
+			$st .= ',';
+		}
+		$st .= "$p->user_id";
 	}
 	return $st;
 }]);

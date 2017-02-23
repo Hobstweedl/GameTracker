@@ -78,12 +78,18 @@ class PlaythroughController extends Controller
     } 
 
     public function edit($id){
+        $scores = [];
+        $playthrough = Playthrough::find($id);
+        foreach($playthrough->participants as $participant){
+            $scores[$participant->user_id] = $participant->score;
+        }
 
         return view('playthrough.edit',[
             'players' => User::get(['id', 'nickname', 'profile_photo']),
             'games' => Game::get(['id', 'name', 'photo']),
-            'playthrough' => Playthrough::find($id),
-            'p_id' => $id
+            'playthrough' => $playthrough,
+            'p_id' => $id,
+            'player_scores' => $scores
         ]);
     }
 
